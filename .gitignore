@@ -1,0 +1,26 @@
+# --- C/C++ ---
+*.exe
+*.out
+*.o
+*.obj
+*.dll
+
+# --- Java & Kotlin ---
+*.class
+*.jar
+*.war
+.gradle/
+build/
+bin/
+
+# --- IDE 설정 (나만 쓰는 설정은 깃에 올리지 않음) ---
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# --- OS 공통 ---
+.DS_Store
+Thumbs.db
