@@ -44,26 +44,26 @@ void insert_front(Node **head, int value)
     *head = new_node;
 }
 
-void insert_last(Node *head, int value)
+void insert_last(Node **head, int value)
 {
-    Node *ptr = head;
-    Node *back_node = (Node *)malloc(sizeof(Node)); 
+    Node *back_node = CreateNode(value);
+    
+    if (*head == NULL) {
+        *head = back_node;
+        return ;
+    }
+    Node *ptr = *head;
     while (ptr->next != NULL)
         ptr = ptr->next;
-    if (ptr->next == NULL) {
-        back_node->data = value;
-        back_node->next = NULL;
-        ptr->next = back_node;
-        // ptr = back_node;
-    }
+    ptr->next = back_node;
 }
 
 int get_size(Node *head)
 {
     Node *ptr = head;
-    int count = 1;
+    int count = 0;
 
-    while (ptr->next != NULL) {
+    while (ptr != NULL) {
         count++;
         ptr = ptr->next;
     }
@@ -74,13 +74,11 @@ Node *search(Node *head, int value)
 {
     Node *ptr = head;
 
-    while (ptr->next != NULL) {
+    while (ptr != NULL) {
         if (ptr->data == value)
             return (ptr);
         ptr = ptr->next;
     }
-    if (ptr->data == value)
-        return (ptr);
     return (NULL);
 }
 
@@ -123,7 +121,7 @@ int main()
     C->next = NULL;
     head = A;
     insert_front(&head, 40);
-    insert_last(head, 50);
+    insert_last(&head, 50);
 
     printList(head);
     first_delete(&head);
