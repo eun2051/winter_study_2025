@@ -9,7 +9,8 @@ char    *ft_strrev(char *str); */
 int	ft_strlen(char *str)
 {
 	int	len;
-
+	
+	len = 0;
 	while (str[len] != '\0')
 		len++;
 	return len;
@@ -18,8 +19,20 @@ int	ft_strlen(char *str)
 char	*ft_strrev(char *str)
 {
 	int i = 0;
-	while (str[i] != '\0') {
-		
+	int end = ft_strlen(str) - 1;
+	while (i < end) {
+		int tmp = str[i];
+		str[i] = str[end];
+		str[end] = tmp;
+		i++;
+		end--;
 	}
 	return str;
 }
+
+/*
+int main()
+{
+	char str[] = "werlskdjflskdjflskdjf";
+	printf("%s\n", ft_strrev(str));
+} */
