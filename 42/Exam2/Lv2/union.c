@@ -14,5 +14,13 @@ int main(int ac, char **av)
 		write(1, "\n", 1);
 		return 0;
 	}
-
+	int i = 0, j;
+	while (av[2][i] != '\0') {
+		j = 0;
+		while (av[1][j] != '\0') {
+			if (av[1][j] != av[2][i])
+		}
+	}
+	write(1, "\n", 1);
+	return 0;
 }
