@@ -9,32 +9,61 @@ Your function must be declared as follows:
 char    **ft_split(char *str); */
 #include <stdlib.h>
 
-int	ft_strlen(char *str)
+int	is_space(char c)
 {
-	int	len = 0;
-
-	while (str[len] != '\0')
-		len++;
-	return len;
+	return (c == ' ' || c == '\t' || c == '\n');
 }
 
-int	is_space(char *str)
+int	count_words(char *str)
 {
-	int flag = 0;
+	int count = 0;
 	int i = 0;
-	while (str[i] != '\0') {
-		if (str[i] == ' ' || str[i] == '\t' || str[i] == '\n') {
-			i++;
-			continue;
+
+	while (*str) {
+		while (*str && is_space(*str))
+			str++;
+		if (*str && !is_space(*str)) {
+			count++;
+			while (*str && !is_space(*str))
+				str++;
 		}
-		flag++;
+	}
+	return count;
+}
+
+char	*make_str(char *str)
+{
+	int i = 0;
+
+	while (str[i] != '\0' && !is_space(str[i]))
+		i++;
+	char *new = (char *)malloc(sizeof(char) * (i + 1));
+	i = 0;
+	while (str[i] && !is_space(str[i]))
+	{
+		new[i] = str[i];
 		i++;
 	}
-	return flag;
+	new[i] = '\0';
+	return new;
 }
 
 char	**ft_split(char *str)
 {
-	int	str_len = is_space(str);
-	char	**result = (char **)malloc(sizeof(char *) * (str_len + 1));
+	int	words = count_words(str);
+	char	**result = (char **)malloc(sizeof(char *) * (words + 1));
+	int i = 0;
+	while (*str) {
+		while (*str && is_space(*str))
+			str++;
+		if (*str && !is_space(*str))
+		{
+			result[i] = make_str(str);
+			i++;
+			while (*str && !is_space(*str))
+				str++;
+		}
+	}
+	result[i] = NULL;
+	return (result);
 }
