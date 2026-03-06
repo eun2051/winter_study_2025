@@ -1,20 +1,20 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# define ESC    53
-# define W      13
-# define S      1
-# define A      0
-# define D      2
+# define ESC    65307  //53
+# define W      119  //13
+# define S      97  //1
+# define A      115  //0
+# define D      100  //2
 
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include <mlx.h>
-# include "libft.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
+# include "./mlx_linux/mlx.h"
+# include "./ft_printf/libft/libft.h"
+# include "./ft_printf/ft_printf.h"
+# include "./get_next_line/get_next_line.h"
 
 typedef struct s_img {
     void    *player;
