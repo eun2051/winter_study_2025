@@ -49,7 +49,6 @@ typedef struct s_map {
 } t_map;
 
 void    print_map(t_map *game);
-void    check_element(t_map *game);
 void    cnt_element(char  c, t_map *game);
 int    check_cnt(t_map *game);
 void    read_map(int fd, t_map *game);

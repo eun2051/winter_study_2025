@@ -13,6 +13,7 @@ int main(int ac, char **av)
     check_error(&game);
     game.mlx.mlx_ptr = mlx_init();
     game.mlx.win_ptr = mlx_new_window(game.mlx.mlx_ptr, game.map_row * 64, game.map_col * 64, "so_long");
+    param_init(&game);
     put_img(&game);
     img_map(&game);
     game.move_cnt = 0;
