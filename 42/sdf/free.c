@@ -46,12 +46,10 @@ void	clear_all(t_map *game)
 		if (game->mlx.img.exit)
 			mlx_destroy_image(game->mlx.mlx_ptr, game->mlx.img.exit);
 		if (game->mlx.win_ptr)
-		{
 			mlx_destroy_window(game->mlx.mlx_ptr, game->mlx.win_ptr);
-			free(game->mlx.mlx_ptr);
-		}
 		mlx_destroy_display(game->mlx.mlx_ptr);
 		free(game->mlx.mlx_ptr);
+		game->mlx.mlx_ptr = NULL;
 	}
 }
 

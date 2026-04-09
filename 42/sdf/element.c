@@ -14,7 +14,7 @@
 
 void	check_element(char c, t_map *game)
 {
-	if (c != '0' && c != '1' && c != 'C' && c != 'E' && c != 'P' && c != '\n')
+	if (c != '0' && c != '1' && c != 'C' && c != 'E' && c != 'P')
 		error_exit("Invalid element\n", game);
 }
 

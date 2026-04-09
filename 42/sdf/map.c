@@ -67,9 +67,6 @@ void	make_map(char *c, t_map *game)
 	free(all);
 	if (!game->map)
 		error_exit("Map fail\n", game);
-	game->map_col = 0;
-	while (game->map[game->map_col])
-		game->map_col++;
 }
 
 int	check_ber(char *c)
