@@ -23,21 +23,21 @@ void	sort_three(t_stack *a)
 	top = a->top->data;
 	mid = a->top->prev->data;
 	bot = a->bottom->data;
-	if (top > mid && top > bot && mid > bot)       // [2,1,0] → sa, rra
+	if (top > mid && top > bot && mid > bot)
 	{
 		print_swap(a, 'a');
 		print_rrotate(a, 'a');
 	}
-	else if (top > mid && top > bot && mid < bot)  // [2,0,1] → ra
+	else if (top > mid && top > bot && mid < bot)
 		print_rotate(a, 'a');
-	else if (top > mid && top < bot)               // [1,0,2] → sa
+	else if (top > mid && top < bot)
 		print_swap(a, 'a');
-	else if (top < mid && top < bot && mid > bot)  // [0,2,1] → rra, sa
+	else if (top < mid && top < bot && mid > bot)
 	{
 		print_rrotate(a, 'a');
 		print_swap(a, 'a');
 	}
-	else                                            // [1,2,0] → rra
+	else
 		print_rrotate(a, 'a');
 }
 
@@ -55,4 +55,16 @@ void	push_a2b(t_stack *a, t_stack *b)
 		sort_three(a);
 	if (a->size == 2 && !is_sorted(a))
 		print_swap(a, 'a');
+}
+
+void	find_data(t_stack *a, int *lista)
+{
+	t_node	*cur;
+
+	cur = a->bottom;
+	while (cur != NULL)
+	{
+		cur->data = binary_search(lista, a->size, cur->data);
+		cur = cur->next;
+	}
 }

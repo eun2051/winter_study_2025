@@ -6,7 +6,7 @@
 /*   By: seungele <seungele@student.42gyeongsan.kr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 17:39:49 by seungele          #+#    #+#             */
-/*   Updated: 2026/03/18 17:49:41 by seungele         ###   ########.fr       */
+/*   Updated: 2026/04/11 19:35:26 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int	stacka_part(int *lista, int start, int end)
 void	stacka_quick(int *lista, int start, int end)
 {
 	int	piv_index;
-	if (start + 2 <= end) 
+
+	if (start + 2 <= end)
 	{
 		piv_index = stacka_part(lista, start, end);
 		stacka_quick(lista, start, piv_index - 1);
@@ -105,16 +106,4 @@ int	binary_search(int *lista, int size, int target)
 			high = mid - 1;
 	}
 	return (-1);
-}
-
-void	find_data(t_stack *a, int *lista)
-{
-	t_node	*cur;
-
-	cur = a->bottom;
-	while (cur != NULL)
-	{
-		cur->data = binary_search(lista, a->size, cur->data);
-		cur = cur->next;
-	}
 }

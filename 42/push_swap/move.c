@@ -1,75 +1,86 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seungele <seungele@student.42gyeongsa      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/11 19:38:49 by seungele          #+#    #+#             */
+/*   Updated: 2026/04/11 19:46:07 by seungele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void    rotate_dir(t_stack *a, t_stack *b, int *cost_a, int *cost_b)
+void	rotate_dir(t_stack *a, t_stack *b, int *cost_a, int *cost_b)
 {
-    if (*cost_a > 0 && *cost_b > 0)
-    {
-        while (*cost_a > 0 && *cost_b > 0)
-        {
-            print_rr(a, b);
-            (*cost_a)--;
-            (*cost_b)--;
-        }
-    }
-    else if (*cost_a < 0 && *cost_b < 0)
-    {
-        while (*cost_a < 0 && *cost_b < 0)
-        {
-            print_rrr(a, b);
-            (*cost_a)++;
-            (*cost_b)++;
-        }
-    }
-
+	if (*cost_a > 0 && *cost_b > 0)
+	{
+		while (*cost_a > 0 && *cost_b > 0)
+		{
+			print_rr(a, b);
+			(*cost_a)--;
+			(*cost_b)--;
+		}
+	}
+	else if (*cost_a < 0 && *cost_b < 0)
+	{
+		while (*cost_a < 0 && *cost_b < 0)
+		{
+			print_rrr(a, b);
+			(*cost_a)++;
+			(*cost_b)++;
+		}
+	}
 }
 
-void    push_mv(t_stack *a, t_stack *b, int cost_a, int cost_b)
+void	push_mv(t_stack *a, t_stack *b, int cost_a, int cost_b)
 {
-    rotate_dir(a, b, &cost_a, &cost_b);
-    while (cost_a > 0)
-    {
-        print_rotate(a, 'a');
-        cost_a--;
-    }
-    while (cost_a < 0)
-    {
-        print_rrotate(a, 'a');
-        cost_a++;
-    }
-    while (cost_b > 0)
-    {
-        print_rotate(b, 'b');
-        cost_b--;
-    }
-    while (cost_b < 0)
-    {
-        print_rrotate(b, 'b');
-        cost_b++;
-    }
-    print_push(b, a, 'a');
+	rotate_dir(a, b, &cost_a, &cost_b);
+	while (cost_a > 0)
+	{
+		print_rotate(a, 'a');
+		cost_a--;
+	}
+	while (cost_a < 0)
+	{
+		print_rrotate(a, 'a');
+		cost_a++;
+	}
+	while (cost_b > 0)
+	{
+		print_rotate(b, 'b');
+		cost_b--;
+	}
+	while (cost_b < 0)
+	{
+		print_rrotate(b, 'b');
+		cost_b++;
+	}
+	print_push(b, a, 'a');
 }
 
-void    final_rotate(t_stack *a)
+void	final_rotate(t_stack *a)
 {
-    int min_pos;
-    int cost;
+	int	min_pos;
+	int	cost;
 
-    set_index(a);
-    min_pos = find_min_pos(a);
-    cost = get_cost(min_pos, a->size);
-    while (cost != 0)
-    {
-        if (cost > 0)
-        {
-            print_rotate(a, 'a');
-            cost--;
-        }
-        else
-        {
-            print_rrotate(a, 'a');
-            cost++;
-        }
-    }
+	set_index(a);
+	min_pos = find_min_pos(a);
+	cost = get_cost(min_pos, a->size);
+	while (cost != 0)
+	{
+		if (cost > 0)
+		{
+			print_rotate(a, 'a');
+			cost--;
+		}
+		else
+		{
+			print_rrotate(a, 'a');
+			cost++;
+		}
+	}
 }
 
 void	greedy_sort(t_stack *a, t_stack *b)

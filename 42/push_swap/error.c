@@ -48,21 +48,15 @@ int	check_dup(t_stack *s)
 	return (1);
 }
 
-long long	check_overflow(long long a, int next, int sign)
+long long	check_overflow(t_stack *s, long long a, int next, int sign)
 {
 	long long	check;
 
 	check = a * 10 + next;
 	if (sign == 1 && check > INT_MAX)
-	{
-		write(2, "Error\n", 6);
-		exit(1);
-	}
+		exit_error(s, NULL);
 	else if (sign == -1 && (check * sign) < INT_MIN)
-	{
-		write(2, "Error\n", 6);
-		exit(1);
-	}
+		exit_error(s, NULL);
 	return (check);
 }
 
@@ -75,4 +69,14 @@ void	check_error(t_stack *s)
 	}
 	if (is_sorted(s) == 1)
 		exit(0);
+}
+
+void	exit_error(t_stack *a, t_stack *b)
+{
+	if (a)
+		clear_stack(a);
+	if (b)
+		clear_stack(b);
+	write(2, "Error\n", 6);
+	exit(1);
 }

@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	get_num(char *c)
+int	get_num(t_stack *s, char *c)
 {
 	int			sign;
 	long long	value;
@@ -30,7 +30,7 @@ int	get_num(char *c)
 	check_parse(c);
 	while (*c >= '0' && *c <= '9')
 	{
-		value = check_overflow(value, *c - '0', sign);
+		value = check_overflow(s, value, *c - '0', sign);
 		c++;
 	}
 	return (value * sign);
@@ -52,7 +52,7 @@ void	parse_num(t_stack *s, char **av)
 				curr++;
 			if (*curr == '\0')
 				break ;
-			data = get_num(curr);
+			data = get_num(s, curr);
 			stack_push_bottom(s, data);
 			if (*curr == '+' || *curr == '-')
 				curr++;

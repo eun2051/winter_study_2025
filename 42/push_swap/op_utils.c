@@ -37,10 +37,15 @@ void	s_swap(int *a, int *b)
 	*b = tmp;
 }
 
-
 int	ft_abs(int n)
 {
 	if (n < 0)
 		return (-n);
 	return (n);
+}
+
+void	clear_stack(t_stack *s)
+{
+	while (s->size > 0)
+		stack_pop_top(s);
 }

@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   target.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seungele <seungele@student.42gyeongsa      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/11 19:35:04 by seungele          #+#    #+#             */
+/*   Updated: 2026/04/11 19:35:06 by seungele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	set_index(t_stack *b)
 {
 	int		i;
 	t_node	*cur;
-	
+
 	i = 0;
 	cur = b->top;
 	while (cur != NULL)
@@ -15,7 +27,7 @@ void	set_index(t_stack *b)
 	}
 }
 
-int	find_target(t_stack *a, int	b_data)
+int	find_target(t_stack *a, int b_data)
 {
 	int		max_a;
 	int		min_a;

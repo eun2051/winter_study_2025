@@ -15,7 +15,7 @@
 int	main(int ac, char **av)
 {
 	t_stack	a;
-	t_stack b;
+	t_stack	b;
 
 	if (ac < 2)
 		return (0);
@@ -25,5 +25,7 @@ int	main(int ac, char **av)
 	check_error(&a);
 	push_a2b(&a, &b);
 	greedy_sort(&a, &b);
+	clear_stack(&a);
+	clear_stack(&b);
 	return (0);
 }

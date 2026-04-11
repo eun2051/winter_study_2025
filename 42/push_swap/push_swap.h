@@ -45,7 +45,7 @@ int			stack_pop_top(t_stack *s);
 int			stack_pop_bottom(t_stack *s);
 t_stack		*stack_push_top(t_stack *s, int data);
 t_stack		*stack_push_bottom(t_stack *s, int data);
-long long	check_overflow(long long a, int next, int sign);
+long long	check_overflow(t_stack *s, long long a, int next, int sign);
 void		check_error(t_stack *s);
 void		find_data(t_stack *a, int *lista);
 void		stacka_quick(int *lista, int start, int end);
@@ -57,7 +57,7 @@ void		push_mv(t_stack *a, t_stack *b, int cost_a, int cost_b);
 void		final_rotate(t_stack *a);
 void		greedy_sort(t_stack *a, t_stack *b);
 int			ft_abs(int n);
-int			get_num(char *c);
+int			get_num(t_stack *s, char *c);
 void		parse_num(t_stack *s, char **av);
 void		check_parse(char *c);
 void		print_rotate(t_stack *s, char name);
@@ -75,6 +75,7 @@ int			find_min_pos(t_stack *s);
 void		sort_three(t_stack *a);
 void		push_a2b(t_stack *a, t_stack *b);
 t_node		*get_total_cost(t_stack *a, t_stack *b);
-
+void		clear_stack(t_stack *s);
+void		exit_error(t_stack *a, t_stack *b);
 
 #endif
