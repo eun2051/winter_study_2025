@@ -88,5 +88,6 @@ void	free_map(char **c);
 void	valid_map(t_map *game);
 void	flood_fill(t_map *game, int x, int y);
 void	error_exit(char *msg, t_map *game);
+void	clear_all(t_map *game);
 
 #endif
