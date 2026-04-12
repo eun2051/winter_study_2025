@@ -29,36 +29,31 @@ void	set_index(t_stack *b)
 
 int	find_target(t_stack *a, int b_data)
 {
-	int		max_a;
-	int		min_a;
-	int		min_p;
+	int		result;
 	t_node	*cur;
 	t_node	*target;
 
-	max_a = find_max(a);
-	min_a = find_min(a);
-	if (b_data > max_a || b_data < min_a)
+	if (b_data > find_max(a) || b_data < find_min(a))
+		result = find_min_pos(a);
+	else
 	{
-		min_p = find_min_pos(a);
-		return (min_p);
-	}
-	cur = a->top;
-	target = NULL;
-	while (cur != NULL)
-	{
-		if (cur->data > b_data)
+		cur = a->top;
+		target = NULL;
+		while (cur != NULL)
 		{
-			if (target == NULL || cur->data < target->data)
-				target = cur;
+			if (cur->data > b_data)
+			{
+				if (target == NULL || cur->data < target->data)
+					target = cur;
+			}
+			cur = cur->prev;
 		}
-		cur = cur->prev;
+		if (!target)
+			result = find_min_pos(a);
+		else
+			result = target->pos;
 	}
-	if (!target)
-	{
-		min_p = find_min_pos(a);
-		return (min_p);
-	}
-	return (target->pos);
+	return (result);
 }
 
 int	find_min(t_stack *s)

@@ -30,21 +30,18 @@ int	get_total(t_stack *a, t_stack *b, t_node *cur)
 	target = find_target(a, cur->data);
 	cost_b = get_cost(cur->pos, b->size);
 	cost_a = get_cost(target, a->size);
-	// Case 1: 둘 다 정방향 (rr 최적화)
 	if (cost_a > 0 && cost_b > 0)
 	{
 		if (cost_a > cost_b)
 			return (cost_a);
 		return (cost_b);
 	}
-	// Case 2: 둘 다 역방향 (rrr 최적화)
 	if (cost_a < 0 && cost_b < 0)
 	{
 		if (ft_abs(cost_a) > ft_abs(cost_b))
 			return (ft_abs(cost_a));
 		return (ft_abs(cost_b));
 	}
-	// Case 3: 방향이 다를 때 (각각 회전)
 	min_total = ft_abs(cost_a) + ft_abs(cost_b);
 	return (min_total);
 }
