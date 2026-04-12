@@ -22,7 +22,6 @@ int	main(int ac, char **av)
 	stack_init(&a);
 	stack_init(&b);
 	parse_num(&a, av);
-	check_error(&a);
 	push_a2b(&a, &b);
 	greedy_sort(&a, &b);
 	clear_stack(&a);

@@ -27,7 +27,7 @@ int	get_num(t_stack *s, char *c)
 			sign = -1;
 		c++;
 	}
-	check_parse(c);
+	check_parse(s, c);
 	while (*c >= '0' && *c <= '9')
 	{
 		value = check_overflow(s, value, *c - '0', sign);
@@ -64,11 +64,8 @@ void	parse_num(t_stack *s, char **av)
 	check_error(s);
 }
 
-void	check_parse(char *c)
+void	check_parse(t_stack *s, char *c)
 {
 	if (*c < '0' || *c > '9')
-	{
-		write(2, "Error\n", 6);
-		exit(1);
-	}
+		exit_error(s, NULL);
 }

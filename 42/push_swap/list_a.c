@@ -20,7 +20,7 @@ int	*stacka_list(t_stack *a)
 
 	lista = (int *)malloc(sizeof(int) * (a->size));
 	if (!lista)
-		exit(1);
+		exit_error(a, NULL);
 	i = 0;
 	cur = a->bottom;
 	while (i < a->size)

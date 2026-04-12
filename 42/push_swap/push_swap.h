@@ -59,7 +59,7 @@ void		greedy_sort(t_stack *a, t_stack *b);
 int			ft_abs(int n);
 int			get_num(t_stack *s, char *c);
 void		parse_num(t_stack *s, char **av);
-void		check_parse(char *c);
+void		check_parse(t_stack *s, char *c);
 void		print_rotate(t_stack *s, char name);
 void		print_rr(t_stack *a, t_stack *b);
 void		print_rrotate(t_stack *s, char name);

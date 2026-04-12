@@ -63,10 +63,7 @@ long long	check_overflow(t_stack *s, long long a, int next, int sign)
 void	check_error(t_stack *s)
 {
 	if (check_dup(s) == 0)
-	{
-		write(2, "Error\n", 6);
-		exit(1);
-	}
+		exit_error(s, NULL);
 	if (is_sorted(s) == 1)
 		exit(0);
 }
