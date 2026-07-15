@@ -6,7 +6,7 @@
 /*   By: seungele <seungele@student.42gyeongsa      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 19:42:24 by seungele          #+#    #+#             */
-/*   Updated: 2026/03/06 19:46:18 by seungele         ###   ########.fr       */
+/*   Updated: 2026/03/13 16:03:20 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int	key_press(int keycode, t_map *game)
 	else if (keycode == D)
 		check_player(game, game->dest.x + 1, game->dest.y);
 	else if (keycode == ESC)
+	{
+		clear_all(game);
 		exit(0);
+	}
 	return (0);
 }
 
@@ -36,7 +39,10 @@ void	check_player(t_map *game, int x, int y)
 	else if (game->map[y][x] == 'E')
 	{
 		if (game->c_cnt == 0)
+		{
+			clear_all(game);
 			exit(0);
+		}
 		return ;
 	}
 	game->map[game->dest.y][game->dest.x] = '0';
@@ -48,8 +54,9 @@ void	check_player(t_map *game, int x, int y)
 	img_map(game);
 }
 
-int	close_map(void)
+int	close_map(t_map *game)
 {
+	clear_all(game);
 	exit(0);
 	return (0);
 }

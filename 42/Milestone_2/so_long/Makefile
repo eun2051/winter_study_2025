@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -I./mlx_linux -I./get_next_line -I./ft_printf -I.
 
 MLX_LIB = ./mlx_linux/libmlx.a
 PRINT_LIB = ./ft_printf/libftprintf.a
-SRCS = $(GNL_SRCS) map.c error.c img_map.c key.c so_long.c sort.c
+SRCS = $(GNL_SRCS) element.c error.c img_map.c key.c map.c sort.c free.c so_long.c
 GNL_SRCS = ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
 OBJS = $(SRCS:.c=.o)
 
