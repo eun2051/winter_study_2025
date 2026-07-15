@@ -1,35 +1,26 @@
-NAME = so_long
+NAME= push_swap
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I./mlx_linux -I./get_next_line -I./ft_printf -I./ft_printf/libft
+CFLAGS = -Wall -Wextra -Werror
+SRC = operation.c parse.c push_swap.c error.c op_utils.c \
+      print_rotate.c print_op.c \
+      move.c cost.c list_a.c target.c sort.c
+OBJ = ${SRC:.c=.o}
 
-MLX_LIB = ./mlx_linux/libmlx.a
-PRINT_LIB = ./ft_printf/libftprintf.a
-SRCS = $(GNL_SRCS) element.c error.c img_map.c key.c map.c sort.c free.c so_long.c
-GNL_SRCS = ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
-OBJS = $(SRCS:.c=.o)
+all: $(NAME)
 
-all : $(NAME)
-
-$(MLX_LIB):
-	$(MAKE) -C ./mlx_linux
-
-$(PRINT_LIB):
-	$(MAKE) -C ./ft_printf
-
-$(NAME): $(OBJS) $(MLX_LIB) $(PRINT_LIB)
-	$(CC) $(OBJS) -Lmlx_linux -lmlx $(PRINT_LIB) -lXext -lX11 -lm -o $(NAME)
-# 	$(CC) $(OBJS) $(PRINT_LIB) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+$(NAME) : $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 
 clean:
-	rm -rf $(OBJS)
-	$(MAKE) -C ./mlx_linux clean
-	$(MAKE) -C ./ft_printf clean
+	rm -rf $(OBJ)
 
-fclean: clean
+fclean:
+	$(MAKE) clean
 	rm -rf $(NAME)
-	$(MAKE) -C ./ft_printf fclean
 
-re: fclean all
+re:
+	$(MAKE) fclean
+	$(MAKE) all
 
-.PHONY: all clean fclean re
+.PHONY : all clean fclean re

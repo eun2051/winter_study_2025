@@ -3,74 +3,77 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungele <seungele@student.42gyeongsa      +#+  +:+       +#+        */
+/*   By: seungele <seungele@student.42gyeongsan.kr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/06 19:17:57 by seungele          #+#    #+#             */
-/*   Updated: 2026/03/13 16:13:40 by seungele         ###   ########.fr       */
+/*   Created: 2026/03/12 17:25:06 by seungele          #+#    #+#             */
+/*   Updated: 2026/03/12 17:39:26 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "push_swap.h"
 
-void	is_wall(t_map *game)
+int	is_sorted(t_stack *s)
 {
-	int	i;
+	t_node	*cur;
 
-	i = 0;
-	while (i < game->map_row)
+	if (s->size <= 1)
+		return (1);
+	cur = s->top;
+	while (cur != NULL && cur->prev != NULL)
 	{
-		if (game->map[0][i] != '1' || game->map[game->map_col - 1][i] != '1')
-			error_exit("Invalid map shape\n", game);
-		i++;
+		if (cur->data > cur->prev->data)
+			return (0);
+		cur = cur->prev;
 	}
-	i = 0;
-	while (i < game->map_col)
-	{
-		if (game->map[i][0] != '1' || game->map[i][game->map_row - 1] != '1')
-			error_exit("Invalid map shape\n", game);
-		i++;
-	}
+	return (1);
 }
 
-void	check_error(t_map *game)
+int	check_dup(t_stack *s)
 {
-	is_rectangle(game);
-	is_wall(game);
-	check_dest(game);
-	copy_map(game);
-	flood_fill(game, game->dest.x, game->dest.y);
-	valid_map(game);
-}
+	t_node	*a;
+	t_node	*b;
 
-void	is_rectangle(t_map *game)
-{
-	int	size;
-	int	i;
-
-	if (!game->map || !game->map[0])
-		error_exit("Empty map", game);
-	size = get_len(game->map[0]);
-	if (size < 3)
-		error_exit("Map too narrow\n", game);
-	game->map_row = size;
-	i = 0;
-	while (game->map[i] != NULL)
+	a = s->top;
+	while (a != NULL)
 	{
-		if (size != get_len(game->map[i]))
-			error_exit("Invalid shape\n", game);
-		i++;
+		b = a->prev;
+		while (b != NULL)
+		{
+			if (a->data == b->data)
+				return (0);
+			b = b->prev;
+		}
+		a = a->prev;
 	}
-	if (i < 3)
-		error_exit("Map too small\n", game);
-	game->map_col = i;
+	return (1);
 }
 
-int	get_len(char *c)
+long long	check_overflow(t_stack *s, long long a, int next, int sign)
 {
-	int	len;
+	long long	check;
 
-	len = ft_strlen(c);
-	if (len > 0 && c[len - 1] == '\n')
-		return (len - 1);
-	return (len);
+	check = a * 10 + next;
+	if (sign == 1 && check > INT_MAX)
+		exit_error(s, NULL);
+	else if (sign == -1 && (check * sign) < INT_MIN)
+		exit_error(s, NULL);
+	return (check);
+}
+
+void	check_error(t_stack *s)
+{
+	if (check_dup(s) == 0)
+		exit_error(s, NULL);
+	if (is_sorted(s) == 1)
+		exit(0);
+}
+
+void	exit_error(t_stack *a, t_stack *b)
+{
+	if (a)
+		clear_stack(a);
+	if (b)
+		clear_stack(b);
+	write(2, "Error\n", 6);
+	exit(1);
 }

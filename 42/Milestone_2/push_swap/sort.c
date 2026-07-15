@@ -3,73 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungele <seungele@student.42gyeongsa      +#+  +:+       +#+        */
+/*   By: seungele <seungele@student.42gyeongsan.kr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/07 12:51:35 by seungele          #+#    #+#             */
-/*   Updated: 2026/03/13 16:04:07 by seungele         ###   ########.fr       */
+/*   Created: 2026/03/18 17:39:40 by seungele          #+#    #+#             */
+/*   Updated: 2026/03/18 17:39:42 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "push_swap.h"
 
-void	flood_fill(t_map *game, int x, int y)
+void	sort_three(t_stack *a)
 {
-	if (x < 0 || x >= game->map_row || y < 0 || y >= game->map_col)
+	int	top;
+	int	mid;
+	int	bot;
+
+	if (is_sorted(a))
 		return ;
-	if (game->copy[y][x] == '1' || game->copy[y][x] == 'v')
-		return ;
-	if (game->copy[y][x] == 'E')
+	top = a->top->data;
+	mid = a->top->prev->data;
+	bot = a->bottom->data;
+	if (top > mid && top > bot && mid > bot)
 	{
-		game->copy[y][x] = 'v';
-		return ;
+		print_swap(a, 'a');
+		print_rrotate(a, 'a');
 	}
-	game->copy[y][x] = 'v';
-	flood_fill(game, x - 1, y);
-	flood_fill(game, x, y - 1);
-	flood_fill(game, x, y + 1);
-	flood_fill(game, x + 1, y);
+	else if (top > mid && top > bot && mid < bot)
+		print_rotate(a, 'a');
+	else if (top > mid && top < bot)
+		print_swap(a, 'a');
+	else if (top < mid && top < bot && mid > bot)
+	{
+		print_rrotate(a, 'a');
+		print_swap(a, 'a');
+	}
+	else
+		print_rrotate(a, 'a');
 }
 
-void	valid_map(t_map *game)
+void	push_a2b(t_stack *a, t_stack *b)
 {
-	int	i;
-	int	j;
+	int	*lista;
 
-	i = 0;
-	while (i < game->map_col)
-	{
-		j = 0;
-		while (j < game->map_row)
-		{
-			if (valid_element(game->copy[i][j]))
-				error_exit("Invalid path\n", game);
-			j++;
-		}
-		i++;
-	}
-	free_map(game->copy);
-	game->copy = NULL;
+	lista = stacka_list(a);
+	stacka_quick(lista, 0, a->size - 1);
+	find_data(a, lista);
+	free(lista);
+	while (a->size > 3)
+		print_push(a, b, 'b');
+	if (a->size == 3)
+		sort_three(a);
+	if (a->size == 2 && !is_sorted(a))
+		print_swap(a, 'a');
 }
 
-int	valid_element(char c)
+void	find_data(t_stack *a, int *lista)
 {
-	if (c == 'C' || c == 'E' || c == 'P')
-		return (1);
-	return (0);
-}
+	t_node	*cur;
 
-void	copy_map(t_map *game)
-{
-	int	i;
-
-	game->copy = (char **)malloc(sizeof(char *) * (game->map_col + 1));
-	if (!game->copy)
-		return ;
-	i = 0;
-	while (i < game->map_col)
+	cur = a->bottom;
+	while (cur != NULL)
 	{
-		game->copy[i] = ft_strdup(game->map[i]);
-		i++;
+		cur->data = binary_search(lista, a->size, cur->data);
+		cur = cur->next;
 	}
-	game->copy[i] = NULL;
 }
