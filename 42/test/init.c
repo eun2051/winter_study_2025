@@ -6,7 +6,7 @@
 /*   By: seungele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 17:47:53 by seungele          #+#    #+#             */
-/*   Updated: 2026/07/24 16:59:52 by seungele         ###   ########.fr       */
+/*   Updated: 2026/07/25 16:45:49 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ void	init_check(t_check *checker, int ac, char **av)
 		checker->num_philo_eat = ft_atoi(av[5]);
 	checker->is_dead = 0;
 	pthread_mutex_init((&(checker->print_lock), NULL);
-	pthread_mutex_init((), NULL);
-	checker->print_lock = ;
-	checker->dead_lock;
+	pthread_mutex_init(&(checker->dead_lock), NULL);
 }
 
 t_philo	*init_philo(t_check *checker)

@@ -6,7 +6,7 @@
 /*   By: seungele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/19 08:32:40 by seungele          #+#    #+#             */
-/*   Updated: 2026/07/24 16:39:16 by seungele         ###   ########.fr       */
+/*   Updated: 2026/07/25 16:45:56 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ long long	check_overflow(long long a, int next, int sign);
 void		check_num(char *c);
 void		init_check(t_check *checker, int ac, char **av);
 t_philo		*init_philo(t_check *checker);
-void		init_fork(t_check *checker):
+void		init_fork(t_check *checker);
 
 #endif
