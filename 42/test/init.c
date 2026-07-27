@@ -6,7 +6,7 @@
 /*   By: seungele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 17:47:53 by seungele          #+#    #+#             */
-/*   Updated: 2026/07/25 16:45:49 by seungele         ###   ########.fr       */
+/*   Updated: 2026/07/27 23:41:01 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_check(t_check *checker, int ac, char **av)
 	if (ac == 6)
 		checker->num_philo_eat = ft_atoi(av[5]);
 	checker->is_dead = 0;
-	pthread_mutex_init((&(checker->print_lock), NULL);
+	pthread_mutex_init(&(checker->print_lock), NULL);
 	pthread_mutex_init(&(checker->dead_lock), NULL);
 }
 
@@ -41,7 +41,7 @@ t_philo	*init_philo(t_check *checker)
 		philo[i].philo_id = i + 1;
 		philo[i].info = checker;
 		philo[i].eat_cnt = 0;
-		pthread_mutex_init(&(philo[i].meal_time), NULL);
+		pthread_mutex_init(&(philo[i].meal_lock), NULL);
 		philo[i].left_fork = &(checker->forks[i]);
 		philo[i].right_fork = &(checker->forks[(i + 1) % checker->num_philo]);
 		i++;
