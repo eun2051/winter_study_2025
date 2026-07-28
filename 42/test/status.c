@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   status.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungele <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: seungele <seungele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 16:41:08 by seungele          #+#    #+#             */
-/*   Updated: 2026/07/25 16:58:45 by seungele         ###   ########.fr       */
+/*   Updated: 2026/07/28 14:06:47 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ long long	get_time()
 void	print_status(t_philo *philo, char *status)
 {
 	pthread_mutex_lock(&(philo->info->print_lock));
-	if (philo->info->is_dead == 1)
+	if (check_dead_flag(philo))
 	{
 		pthread_mutex_unlock(&(philo->info->print_lock));
 		return ;
@@ -40,7 +40,7 @@ void	ft_sleep(long long wait_time)
 
 	start = get_time();
 	while (get_time() - start < wait_time)
-		usleep(500);
+		usleep(100);
 }
 
 int	check_dead_flag(t_philo *philo)

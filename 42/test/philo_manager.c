@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungele <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: seungele <seungele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:40:39 by seungele          #+#    #+#             */
-/*   Updated: 2026/07/27 23:42:25 by seungele         ###   ########.fr       */
+/*   Updated: 2026/07/28 15:35:40 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	*philo_routine(void *arg)
 		pthread_mutex_lock(ptr->left_fork);
 		print_status(ptr, "has taken a fork");
 		while (check_dead_flag(ptr) == 0)
-			usleep(200);
+			usleep(10);
 		pthread_mutex_unlock(ptr->left_fork);
 		return (NULL);
 	}
-	if ((ptr->philo_id) % 2 != 0)
+	if ((ptr->philo_id) % 2 == 0)
 		ft_sleep(ptr->info->time_to_eat / 2);
 	while (1)
 	{
@@ -88,9 +88,14 @@ void	philo_action(t_philo *philo)
 	print_status(philo, "is sleeping");
 	ft_sleep(philo->info->time_to_sleep);
 	print_status(philo, "is thinking");
+	print_status(philo, "is thinking");
 	if (philo->info->num_philo % 2 != 0)
 	{
 		think_time = (philo->info->time_to_die - (philo->info->time_to_eat + philo->info->time_to_sleep)) / 2;
+		if (think_time < 0)
+			think_time = 0;
+		if (think_time == 0 && philo->info->time_to_eat >= philo->info->time_to_sleep)
+			think_time = (philo->info->time_to_eat - philo->info->time_to_sleep) + 1;
 		if (think_time > 0)
 			ft_sleep(think_time);
 	}
