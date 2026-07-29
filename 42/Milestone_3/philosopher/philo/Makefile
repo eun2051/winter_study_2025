@@ -2,7 +2,7 @@ NAME = philo
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRC = ft_atoi.c init.c philo_manager.c status.c clean.c main.c
+SRC = utils.c init.c philo_manager.c status.c clean.c main.c routine_helper.c check_helper.c
 OBJ = ${SRC:.c=.o}
 
 all: $(NAME)

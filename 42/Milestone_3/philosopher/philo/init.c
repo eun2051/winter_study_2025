@@ -6,7 +6,7 @@
 /*   By: seungele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 17:47:53 by seungele          #+#    #+#             */
-/*   Updated: 2026/07/27 23:41:01 by seungele         ###   ########.fr       */
+/*   Updated: 2026/07/29 13:26:05 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_check(t_check *checker, int ac, char **av)
 	checker->time_to_die = ft_atoi(av[2]);
 	checker->time_to_eat = ft_atoi(av[3]);
 	checker->time_to_sleep = ft_atoi(av[4]);
+	checker->num_philo_eat = 0;
 	if (ac == 6)
 		checker->num_philo_eat = ft_atoi(av[5]);
 	checker->is_dead = 0;
@@ -27,8 +28,8 @@ void	init_check(t_check *checker, int ac, char **av)
 
 t_philo	*init_philo(t_check *checker)
 {
+	int		i;
 	t_philo	*philo;
-	int	i;
 
 	i = 0;
 	philo = malloc(sizeof(t_philo) * checker->num_philo);

@@ -6,7 +6,7 @@
 /*   By: seungele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 10:24:50 by seungele          #+#    #+#             */
-/*   Updated: 2026/06/28 08:53:16 by seungele         ###   ########.fr       */
+/*   Updated: 2026/07/29 17:17:27 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,32 @@ long long	check_overflow(long long a, int next, int sign)
 			exit(1);
 	}
 	return (a * 10 + next);
+}
+
+void	ft_putnbr_fd(long long n, int fd)
+{
+	char	c;
+
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		n *= -1;
+	}
+	if (n >= 10)
+		ft_putnbr_fd(n / 10, fd);
+	c = (n % 10) + '0';
+	write(fd, &c, 1);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	len;
+
+	len = 0;
+	while (*s != '\0')
+	{
+		len++;
+		s++;
+	}
+	return (len);
 }

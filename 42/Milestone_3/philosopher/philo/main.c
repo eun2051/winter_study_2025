@@ -5,22 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/23 15:21:57 by seungele          #+#    #+#             */
-/*   Updated: 2026/06/27 19:24:49 by seungele         ###   ########.fr       */
+/*   Created: 2026/07/19 08:32:15 by seungele          #+#    #+#             */
+/*   Updated: 2026/07/29 13:26:34 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	check_t		c;
+	t_check	c;
+	t_philo	*p;
 
-	make_philo(&c, ac, av);
-	give_num(&c);
-	make_fork(&c);
-	make_routine(&c);
-	check_dead(&c);
-	free_all(&c);
-	return (0);	
+	if (ac != 5 && ac != 6)
+		return (1);
+	init_check(&c, ac, av);
+	p = init_philo(&c);
+	if (!p)
+		return (1);
+	start_threads(p, &c);
+	check_dead(p, &c);
+	cleanup(p, &c);
+	return (0);
 }
