@@ -6,7 +6,7 @@
 /*   By: seungele <seungele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:40:39 by seungele          #+#    #+#             */
-/*   Updated: 2026/07/29 15:59:50 by seungele         ###   ########.fr       */
+/*   Updated: 2026/07/30 18:06:49 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,6 @@ void	*philo_routine(void *arg)
 	t_philo	*ptr;
 
 	ptr = (t_philo *)arg;
-	if (ptr->info->num_philo == 1)
-	{
-		pthread_mutex_lock(ptr->left_fork);
-		print_status(ptr, "has taken a fork");
-		while (check_dead_flag(ptr) == 0)
-			usleep(100);
-		pthread_mutex_unlock(ptr->left_fork);
-		return (NULL);
-	}
 	if ((ptr->philo_id) % 2 == 0)
 		ft_sleep(ptr->info->time_to_eat / 2);
 	while (1)
@@ -64,7 +55,8 @@ void	philo_action(t_philo *philo)
 {
 	if (check_dead_flag(philo))
 		return ;
-	taking_fork(philo);
+	if (taking_fork(philo) != 0)
+		return ;
 	print_status(philo, "is eating");
 	pthread_mutex_lock(&(philo->meal_lock));
 	philo->last_meal_time = get_time();
@@ -95,6 +87,7 @@ void	check_dead(t_philo *philo, t_check *checker)
 		{
 			if (time_dead(i, philo, checker) == 1)
 				return ;
+			pthread_mutex_lock(&(philo[i].meal_lock));
 			if (num > 0 && philo[i].eat_cnt >= num)
 				full_cnt++;
 			pthread_mutex_unlock(&(philo[i].meal_lock));

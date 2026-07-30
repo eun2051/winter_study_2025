@@ -6,7 +6,7 @@
 /*   By: seungele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/19 08:32:40 by seungele          #+#    #+#             */
-/*   Updated: 2026/07/29 17:25:48 by seungele         ###   ########.fr       */
+/*   Updated: 2026/07/30 18:50:49 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@
 # include <limits.h>
 # include <pthread.h>
 
+typedef struct s_fork {
+	pthread_mutex_t	fork_mutex;
+	int				is_taken;
+}	t_fork;
+
 typedef struct s_check {
 	int				is_dead;
 	long long		num_philo;
@@ -27,7 +32,7 @@ typedef struct s_check {
 	long long		time_to_sleep;
 	long long		now_time;
 	long long		num_philo_eat;
-	pthread_mutex_t	*forks;
+	t_fork			*forks;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	dead_lock;
 }	t_check;
@@ -38,8 +43,8 @@ typedef struct s_philo {
 	long long		last_meal_time;
 	pthread_t		philo_thread;
 	pthread_mutex_t	meal_lock;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
+	t_fork			*left_fork;
+	t_fork			*right_fork;
 	t_check			*info;
 }	t_philo;
 
@@ -49,9 +54,9 @@ void			check_num(char *c);
 void			ft_putnbr_fd(long long n, int fd);
 size_t			ft_strlen(const char *s);
 
-void			init_check(t_check *checker, int ac, char **av);
+int				init_check(t_check *checker, int ac, char **av);
 t_philo			*init_philo(t_check *checker);
-void			init_fork(t_check *checker);
+int				init_fork(t_check *checker);
 
 void			start_threads(t_philo *philo, t_check *checker);
 void			*philo_routine(void *arg);
@@ -66,7 +71,8 @@ int				check_dead_flag(t_philo *philo);
 
 void			cleanup(t_philo *p, t_check *checker);
 
-void			taking_fork(t_philo *philo);
+int				take_one_fork(t_philo *philo, t_fork *fork);
+int				taking_fork(t_philo *philo);
 void			unlock_fork(t_philo *philo);
 void			thinking_time(t_philo *philo);
 

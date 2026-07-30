@@ -6,7 +6,7 @@
 /*   By: seungele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/19 08:32:15 by seungele          #+#    #+#             */
-/*   Updated: 2026/07/29 13:26:34 by seungele         ###   ########.fr       */
+/*   Updated: 2026/07/30 15:21:12 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	main(int ac, char **av)
 
 	if (ac != 5 && ac != 6)
 		return (1);
-	init_check(&c, ac, av);
+	if (init_check(&c, ac, av) == 1)
+		return (1);
 	p = init_philo(&c);
 	if (!p)
 		return (1);

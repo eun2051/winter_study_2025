@@ -6,7 +6,7 @@
 /*   By: seungele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 15:31:16 by seungele          #+#    #+#             */
-/*   Updated: 2026/07/29 17:23:47 by seungele         ###   ########.fr       */
+/*   Updated: 2026/07/30 18:53:44 by seungele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ int	time_dead(int i, t_philo *philo, t_check *checker)
 		pthread_mutex_unlock(&(philo[i].meal_lock));
 		return (1);
 	}
+	pthread_mutex_unlock(&(philo[i].meal_lock));
 	return (0);
 }
