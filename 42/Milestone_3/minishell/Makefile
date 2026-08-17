@@ -7,27 +7,26 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS = main.c signal.c
-
 OBJS = $(SRCS:.c=.o)
 
 all : $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -lreadline -o $(NAME)
 
 $(LIBFT):
-	make -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f %(OBJS)
-	make -C $(LIBFT_DIR) clean
+	rm -f $(OBJS)
+	@make -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
-	make -C $(LIBFT_DIR) fclean
+	@make -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
