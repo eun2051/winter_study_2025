@@ -18,7 +18,7 @@ int	main(int ac, char **av, char **envp)
 	int	i;
 	int	prev_fd;
 
-	if (ac < 5)
+	if (ac != 5)
 	{
 		ft_putstr_fd("Invalid Arguments\n", 2);
 		return (1);
