@@ -30,19 +30,21 @@ int match_char(FILE *f, char c)
 	}
 }
 
-int scan_char(FILE *f, va_list ap)
+int scan_char(FILE *f, va_list *ap)
 {
+	char *ptr;
 	int c = fgetc(f);
+
 	if (c == EOF)
 		return (0);
-	char *ptr = va_arg(ap, char *);
+	ptr = va_arg(*ap, char *);
 	*ptr = c;
 	return (1);
 }
 
-int	scan_int(FILE *f, va_list ap)
+int	scan_int(FILE *f, va_list *ap)
 {
-	int *ptr = va_arg(ap, int *);
+	int *ptr = va_arg(*ap, int *);
 	int c = fgetc(f);
 	int res = 0;
 	int sign = 1;
@@ -74,9 +76,9 @@ int	scan_int(FILE *f, va_list ap)
 		return (0);
 }
 
-int scan_string(FILE *f, va_list ap)
+int scan_string(FILE *f, va_list *ap)
 {
-	char *str = va_arg(ap, char *);
+	char *str = va_arg(*ap, char *);
 	int count = 0;
 	while (1)
 	{
@@ -96,7 +98,7 @@ int scan_string(FILE *f, va_list ap)
 		return (0);
 }
 
-int match_conv(FILE *f, const char **format, va_list ap)
+int match_conv(FILE *f, const char **format, va_list *ap)
 {
 	switch (**format)
 	{
@@ -128,7 +130,7 @@ int ft_vfscanf(FILE *f, const char *format, va_list ap)
 		if (*format == '%')
 		{
 			format++;
-			if (match_conv(f, &format, ap) != 1)
+			if (match_conv(f, &format, &ap) != 1)
 				break;
 			else
 				nconv++;
@@ -150,8 +152,10 @@ int ft_vfscanf(FILE *f, const char *format, va_list ap)
 int ft_scanf(const char *format, ...)
 {
 	va_list ap;
+	int ret;
+
 	va_start(ap, format);
-	int ret = ft_vfscanf(stdin, format, ap);
+	ret = ft_vfscanf(stdin, format, ap);
 	va_end(ap);
-	return ret;
+	return (ret);
 }
