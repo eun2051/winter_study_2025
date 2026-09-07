@@ -98,20 +98,28 @@ char	*get_next_line(int fd)
 	char	*tmp = ft_strchr(b, '\n');
 	int	read_ret = 0;
 
+	// 보호 구문 (안전을 위해 추가)
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+
 	while (!tmp)
 	{
 		if (!str_append_str(&ret, b))
 			return (NULL);
 		read_ret = read(fd, b, BUFFER_SIZE);
+		
 		if (read_ret == 0)
+		{
+			b[0] = '\0';
 			break;
+		}
 		if (read_ret == -1)
 		{
 			free(ret);
-			b[0] = 0;
+			b[0] = '\0';
 			return (NULL);
 		}
-		b[read_ret] = 0;
+		b[read_ret] = '\0';
 		tmp = ft_strchr(b, '\n');
 	}
 	if (tmp)
